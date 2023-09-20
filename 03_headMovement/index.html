@@ -1,0 +1,30 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transfer Learning</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+  </head>
+
+  <body>
+    <main>
+      <section class="content">
+        <video class="webcam"></video>
+        <section class="buttons">
+          <button>Up</button>
+          <button>Down</button>
+          <button>Left</button>
+          <button>Right</button>
+        </section>
+        <section class="buttons">
+          <button class="predict">Predict</button>
+        </section>
+        <p class="prediction"></p>
+      </section>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>
