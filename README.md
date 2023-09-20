@@ -30,10 +30,4 @@ The predicted result will display on the page.
 1. You shall copy `index.html` and `index.js` from each directory which you
    wanted to test to the root folder `/`
 
-2. Then you could run
-
-```
-yarn watch
-```
-
-to see the effect.
+2. Then you could run `yarn watch` to see the effect.
