@@ -1,7 +1,7 @@
 const webcamElement = document.getElementsByClassName('webcam')[0];
-const buttons = document.getElementsByClassName('buttons');
+const buttons = document.getElementsByTagName('button');
 const predictButton = document.getElementsByClassName('predict')[0];
-const predictionParagraph = document.getElementById('prediction')[0];
+const predictionParagraph = document.getElementsByClassName('prediction')[0];
 const classes = ['up', 'down', 'left', 'right'];
 
 async function app() {
@@ -20,7 +20,6 @@ async function app() {
   for (var i = 0; i < buttons.length; i++) {
     if (buttons[i] !== predictButton) {
       let index = i;
-      console.log("Recorded as: " + buttons.get,index);
       buttons[i].onclick = () => addExample(index);
     }
   }
@@ -36,7 +35,7 @@ async function app() {
 
         // console.log(result);
 
-        predictionParagraph.textContent = `
+        predictionParagraph.innerText = `
                 prediction: ${classes[result.label]},
                 probability: ${result.confidences[result.label]}`;
         img.dispose();

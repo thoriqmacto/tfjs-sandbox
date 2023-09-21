@@ -1,11 +1,11 @@
 const webcamElement = document.getElementsByClassName('webcam')[0];
-const buttons = document.getElementsByClassName('button');
+const buttons = document.getElementsByTagName('button');
 const predictButton = document.getElementsByClassName('predict')[0];
-const classes = ['up', 'down', 'left', 'right'];
 const predictionParagraph = document.getElementsByClassName('prediction')[0];
+const classes = ['up', 'down', 'left', 'right'];
 
 async function app() {
-    console.log("App Started...")
+  console.log('App Started...');
   const classifier = knnClassifier.create();
   const net = await mobilenet.load();
   const webcam = await tf.data.webcam(webcamElement);
@@ -32,6 +32,8 @@ async function app() {
         const img = await webcam.capture();
         const activation = net.infer(img, 'conv_preds');
         const result = await classifier.predictClass(activation);
+
+        // console.log(result);
 
         predictionParagraph.innerText = `
                 prediction: ${classes[result.label]},
