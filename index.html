@@ -2,10 +2,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snap it!</title>
+    <title>Transfer Learning</title>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
     <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
     <link
       rel="icon"
@@ -16,12 +17,18 @@
 
   <body>
     <main>
-      <section class="container">
-        <h1>Snap it</h1>
-        <video></video>
-        <br />
-        <div id="predictionsContainer"></div>
-        <button class="button primary icon">SNAP</button>
+      <section id="content" class="container">
+        <video class="webcam"></video>
+        <section class="buttons">
+          <button>Up</button>
+          <button>Down</button>
+          <button>Left</button>
+          <button>Right</button>
+        </section>
+        <section class="buttons">
+          <button class="predict">Predict</button>
+        </section>
+        <p id="prediction"></p>
       </section>
     </main>
     <script src="./index.js"></script>

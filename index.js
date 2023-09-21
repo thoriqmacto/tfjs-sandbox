@@ -1,58 +1,48 @@
-var predictions = [];
+const webcamElement = document.getElementsByClassName('webcam')[0];
+const buttons = document.getElementsByClassName('buttons');
+const predictButton = document.getElementsByClassName('predict')[0];
+const predictionParagraph = document.getElementById('prediction')[0];
+const classes = ['up', 'down', 'left', 'right'];
 
 async function app() {
   console.log('App Started...');
-
-  var predictionContainer = document.getElementById('predictionsContainer');
-  const webcamElement = document.getElementsByTagName('video')[0];
-  const model = await mobilenet.load();
-
+  const classifier = knnClassifier.create();
+  const net = await mobilenet.load();
   const webcam = await tf.data.webcam(webcamElement);
-  const captureButton = document.getElementsByTagName('button')[0];
 
-  captureButton.onclick = async () => {
+  const addExample = async (classId) => {
     const img = await webcam.capture();
-    predictions = await model.classify(img);
+    const activation = net.infer(img, 'conv_preds');
+    classifier.addExample(activation, classId);
     img.dispose();
-
-    if (predictions.length > 0) {
-      /* console.log(predictions);
-      console.log('Total predictions:', predictions.length);
-
-      predictions.forEach((element) => {
-        console.log('Classname:', element.className);
-        console.log('Probability:', element.probability);
-      }); */
-
-      // Clear inner HTML
-      predictionContainer.innerHTML = '';
-
-      // Create ordered list
-      var orderedList = document.createElement('ol');
-
-      // Loop through the array of predictions
-      predictions.forEach((e) => {
-        const probabilityInPercentage = (e.probability * 100).toFixed(2) + '%';
-        var listItem = document.createElement('li');
-
-        var predictTextBold = document.createElement('strong');
-        predictTextBold.textContent = 'Predictions:';
-
-        var probabilityTextBold = document.createElement('strong');
-        probabilityTextBold.textContent = 'Probability:';
-
-        listItem.appendChild(predictTextBold);
-        listItem.appendChild(
-          document.createTextNode(' ' + e.className + ' | ')
-        );
-        listItem.appendChild(probabilityTextBold);
-        listItem.appendChild(
-          document.createTextNode(' ' + probabilityInPercentage)
-        );
-        orderedList.appendChild(listItem);
-      });
-      predictionContainer.appendChild(orderedList);
-    }
   };
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i] !== predictButton) {
+      let index = i;
+      console.log("Recorded as: " + buttons.get,index);
+      buttons[i].onclick = () => addExample(index);
+    }
+  }
+
+  predictButton.onclick = () => runPredictions();
+
+  async function runPredictions() {
+    while (true) {
+      if (classifier.getNumClasses() > 0) {
+        const img = await webcam.capture();
+        const activation = net.infer(img, 'conv_preds');
+        const result = await classifier.predictClass(activation);
+
+        // console.log(result);
+
+        predictionParagraph.textContent = `
+                prediction: ${classes[result.label]},
+                probability: ${result.confidences[result.label]}`;
+        img.dispose();
+      }
+      await tf.nextFrame();
+    }
+  }
 }
 app();

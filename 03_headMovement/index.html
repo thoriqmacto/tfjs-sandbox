@@ -7,11 +7,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@1.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
+    <link
+      rel="icon"
+      href="https://icons8.com/icon/WHR4QveRLHXp/anchor"
+      type="image/x-icon"
+    />
   </head>
 
   <body>
     <main>
-      <section class="content">
+      <section id="content" class="container">
         <video class="webcam"></video>
         <section class="buttons">
           <button>Up</button>
@@ -20,9 +26,9 @@
           <button>Right</button>
         </section>
         <section class="buttons">
-          <button class="predict">Predict</button>
+          <button id="predict">Predict</button>
         </section>
-        <p class="prediction"></p>
+        <p id="prediction"></p>
       </section>
     </main>
     <script src="./index.js"></script>
