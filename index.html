@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Question Answering</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"></script>
+    <title>Interactive Education Tool</title>
 
     <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
     <link
@@ -14,12 +11,42 @@
       href="https://icons8.com/icon/WHR4QveRLHXp/anchor"
       type="image/x-icon"
     />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <main>
-      <section id="content" class="container"></section>
+    <section class="intro">
+      <h1>Hidden Figures</h1>
+      <h2>
+        Using machine learning, learn about 3 NASA engineers by asking questions
+        about their lives!
+      </h2>
+      <button disabled>Loading...</button>
+    </section>
+
+    <main id="content" class="container">
+      <section class="selection">
+        <h1>Who would you like to learn about?</h1>
+        <section class="buttons">
+          <button class="figure">Katherine Johnson</button>
+          <button class="figure">Dorothy Vaughan</button>
+          <button class="figure">Mary Jackson</button>
+        </section>
+      </section>
+
+      <section class="question">
+        <label for="question"></label>
+        <input type="text" name="question" placeholder="Who was she?" />
+        <button class="ask">Ask</button>
+      </section>
+
+      <section class="answer-block">
+        <p class="input-question"></p>
+        <p class="answer"></p>
+      </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/qna"></script>
     <script src="./index.js"></script>
   </body>
 </html>
