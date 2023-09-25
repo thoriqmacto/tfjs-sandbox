@@ -19,9 +19,23 @@ const init = async () => {
     document.getElementsByClassName('intro')[0].style.display = 'none';
   };
 
-  const figureButtons = document.getElementsByClassName('figure');
+  const figureButtons = document.querySelectorAll('figure');
+  const buttonArray = Array.from(figureButtons);
   let figureData;
-  figureButtons.forEach((button) => {
+
+  buttonArray.forEach((button) => {
+    button.addEventListener('click', async (e) => {
+      try {
+        // Your asynchronous code here
+        const result = await fetchJsonData(e);
+        console.log('Button clicked, result:', result);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  });
+
+  /* figureButtons.forEach((button) => {
     button.onclick = (e) => {
       const dataFile = engineers[e.target.textContent];
       const urlGen = window.location.href + dataFile.json;
@@ -38,7 +52,7 @@ const init = async () => {
           questionInput.style.display = 'block';
         });
     };
-  });
+  }); */
 
   const askButton = document.getElementsByClassName('ask')[0];
   askButton.onclick = async () => {
@@ -48,6 +62,33 @@ const init = async () => {
     document.getElementsByTagName('input')[0].value = '';
   };
 };
+
+async function fetchJsonData(element) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      // Get data from JSON file
+      const dataFile = engineers[element.target.textContent];
+      const urlGen = window.location.href + dataFile.json;
+      console.log('URL Generated: ', urlGen);
+      if (urlGen.length > 0) {
+        resolve(urlGen);
+      } else {
+        reject('Something went wrong');
+      }
+      /* fetch(urlGen)
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementsByClassName('selection')[0].style.display =
+            'none';
+          figureData = data;
+          const questionInput = document.getElementsByClassName('question')[0];
+          const label = document.getElementsByTagName('label')[0];
+          label.innerHTML = `What would you like to know about ${e.target.textContent}?`;
+          questionInput.style.display = 'block';
+        }); */
+    }, 3000);
+  });
+}
 
 const displayAnswer = (answers) => {
   const inputQuestionElement = document.querySelector(

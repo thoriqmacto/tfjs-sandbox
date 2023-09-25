@@ -1,0 +1,26 @@
+#content,
+.question,
+.answer-block {
+  display: none;
+}
+
+.intro,
+#content {
+  border: 6px solid;
+  height: 500px;
+  text-align: center;
+  padding: 5%;
+  margin-top: 10em;
+}
+
+.intro h1,
+#content h1 {
+  font-size: 3.5em;
+  font-weight: bold;
+  margin-bottom: 0.3em;
+}
+
+button.figure {
+  display: inline-block;
+  margin-right: 5em;
+}
